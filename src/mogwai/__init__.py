@@ -1,5 +1,7 @@
 import numpy as np
 import scipy.fft as sf
+import matplotlib.pyplot as plt
+
 
 def psd_white_1f(freq, sigma=1e-2, f_knee = 100, alpha = 2):
     # psd at 0 is 0
@@ -50,3 +52,13 @@ def generate_wf_noise(n_s,f_s):
     freq = sf.rfftfreq(n_s, 1/f_s)
     psd = psd_white_1f(freq)
     return generate_from_psd(psd, n_s,f_s)
+
+def plot_psd(noise, f_herz, m_tt="", nperseg=1024):
+    freq, psdw_noise = ss.welch(noise,  window="hann", fs=f_herz, scaling="density", nperseg=nperseg)
+    plt.figure()
+    plt.title(m_tt)
+    # remove mode 0 and Nyquist
+    plt.loglog(freq[1:-2], psdw_noise[1:-2])
+    plt.xlabel('Frequency [Hz]')
+    plt.ylabel(r'PSD: [$U^2/Hz$]')
+    plt.grid()
