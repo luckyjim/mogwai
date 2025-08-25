@@ -44,6 +44,8 @@ def generate_from_psd(psd, n_s,f_s):
         float[n_s]: time serie with same PSD as parameter psd
     """
     angle = np.random.uniform(0,2*np.pi, len(psd))
+    # Mode 0 and Nyquist are real
+    angle[0], angle[-1] = 0, 0
     # PSD normalisation : sqrt(f_s/2)
     # SciPy FFT backward normalisation : sqrt(n_s)
     fft_c = np.exp(1j*angle)*np.sqrt(psd*(n_s*f_s/2))
