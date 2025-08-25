@@ -56,8 +56,8 @@ def generate_wf_noise(n_s,f_s):
     psd = psd_white_1f(freq)
     return generate_from_psd(psd, n_s,f_s)
 
-def plot_psd(noise, f_herz, m_tt="", nperseg=1024):
-    freq, psdw_noise = ss.welch(noise,  window="hann", fs=f_herz, scaling="density", nperseg=nperseg)
+def plot_psd(noise, f_hertz, m_tt="", nperseg=1024):
+    freq, psdw_noise = ss.welch(noise,  window="hann", fs=f_hertz, scaling="density", nperseg=nperseg)
     plt.figure()
     plt.title(m_tt)
     # remove mode 0 and Nyquist
